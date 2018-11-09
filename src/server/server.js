@@ -12,7 +12,8 @@ import sensores from './routes/sensores';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App from '../client/component/app.jsx';
+import App from '../client/component/App.jsx';
+import Init from '../client/component/init.jsx';
 import Html from '../client/component/html';
 import { ServerStyleSheet } from 'styled-components';
 
@@ -26,13 +27,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(express.static('dist'));
+
 // rutas
 app.use('/variables', variables);
 app.use('/sensores', sensores);
 
 app.get('/', (req, res) => {
 
-    const body = renderToString( < App / > );
+    const body = renderToString( <Init/> );
     const sheet = new ServerStyleSheet();
     const styles = sheet.getStyleTags();
     const title = 'Server side Rendering with Styled Components';
@@ -46,7 +49,7 @@ app.get('/', (req, res) => {
     );
 });
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }, (err) => {
+mongoose.connect('mongodb://csa:Juniortupapa.1@ds123603.mlab.com:23603/csa_db', { useNewUrlParser: true }, (err) => {
 
     if (err) {
         throw err;

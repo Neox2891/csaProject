@@ -4,25 +4,28 @@ import styled from 'styled-components';
 const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
-  color: palevioletred;
+  color: white;
 `;
 
 const Wrapper = styled.section`
   padding: 4em;
-  background: papayawhip;
+  background: black;
 `;
 
-class App extends Component {
+class Init extends Component {
 
     render() {
         return (
             <Wrapper>
                 <Title>
-                    Hello World from react with Styled-Components!
+                    Hello World from react load Init!
                 </Title>
             </Wrapper>
         )
     }
 }
 
-export default App;
+export default Init;
+
+
+
