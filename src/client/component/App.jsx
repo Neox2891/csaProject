@@ -8,8 +8,8 @@ import NavBar from './NavBar.jsx';
 
 // import SimpleModalWrapped from './Modal.jsx' //-----> Componente funciona
 
- import FilledTextFields from './Login.jsx'
- 
+import FilledTextFields from './Login.jsx'
+import { hot } from 'react-hot-loader'
  
 
 // const LoadableComponent = Loadable({
@@ -31,4 +31,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default hot(module)(App);

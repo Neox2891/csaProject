@@ -3,6 +3,7 @@ const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
 const server = {
+    mode: 'development',
     entry: './src/server/server.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -22,7 +23,12 @@ const server = {
 
 const client = {
     mode: 'development',
-    entry: './src/client/index.js',
+    entry: {
+        index: [
+            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+            './src/client/index.js'
+        ]
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
@@ -49,7 +55,8 @@ const client = {
     },
     resolve: {
         extensions: ['.js', '.jsx']
-    }
+    },
+    plugins: [new webpack.HotModuleReplacementPlugin()]
 };
 
 

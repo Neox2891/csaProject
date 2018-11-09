@@ -10,6 +10,12 @@ import cors from 'cors';
 import variables from './routes/variables';
 import sensores from './routes/sensores';
 
+//Hot reload
+import webpack from 'webpack';
+import webpackConfig from '../../webpack.config';
+const compiler = webpack(webpackConfig);
+
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import App from '../client/component/App.jsx';
@@ -21,15 +27,26 @@ const app = express();
 
 // accept all request 
 app.use(cors());
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
 
+// static files
 app.use(express.static('dist'));
 
-// rutas
+app.use(
+    require('webpack-dev-middleware')(compiler, {
+        noInfo: true,
+        publicPath: webpackConfig[1].output.publicPath
+    })
+);
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+// routes
 app.use('/variables', variables);
 app.use('/sensores', sensores);
 
@@ -49,7 +66,7 @@ app.get('/', (req, res) => {
     );
 });
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }, (err) => {
+mongoose.connect('mongodb://csa:Juniortupapa.1@ds123603.mlab.com:23603/csa_db', { useNewUrlParser: true }, (err) => {
 
     if (err) {
         throw err;

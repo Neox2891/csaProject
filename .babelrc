@@ -10,6 +10,7 @@
             {
               "serverSideRequirePath": true
             }
-          ]
+          ],
+          "react-hot-loader/babel"
         ]
 }
