@@ -30,7 +30,7 @@ const client = {
         ]
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         publicPath: '/',
         filename: 'bundle.js',
         chunkFilename: '[name].bundle.js'
@@ -50,6 +50,19 @@ const client = {
                     loader: 'css-loader',
                     options: { modules: true }
                 }]
+            },
+            {
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                use: [
+                  'file-loader',
+                  {
+                    loader: 'image-webpack-loader',
+                    options: {
+                      bypassOnDebug: true, // webpack@1.x
+                      disable: true, // webpack@2.x and newer
+                    },
+                  }
+                ]
             }
         ]
     },

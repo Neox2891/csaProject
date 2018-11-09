@@ -13,13 +13,13 @@ import sensores from './routes/sensores';
 //Hot reload
 import webpack from 'webpack';
 import webpackConfig from '../../webpack.config';
-const compiler = webpack(webpackConfig);
+const compiler = webpack(webpackConfig[1]);
 
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import App from '../client/component/App.jsx';
-import Init from '../client/component/init.jsx';
+import Loading from '../client/component/Loading.jsx';
 import Html from '../client/component/html';
 import { ServerStyleSheet } from 'styled-components';
 
@@ -52,7 +52,7 @@ app.use('/sensores', sensores);
 
 app.get('/', (req, res) => {
 
-    const body = renderToString( <Init/> );
+    const body = renderToString( <Loading/> );
     const sheet = new ServerStyleSheet();
     const styles = sheet.getStyleTags();
     const title = 'Server side Rendering with Styled Components';
@@ -66,7 +66,7 @@ app.get('/', (req, res) => {
     );
 });
 
-mongoose.connect('mongodb://csa:Juniortupapa.1@ds123603.mlab.com:23603/csa_db', { useNewUrlParser: true }, (err) => {
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }, (err) => {
 
     if (err) {
         throw err;
