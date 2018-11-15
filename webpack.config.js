@@ -22,6 +22,9 @@ const server = {
 };
 
 const client = {
+    resolve: {
+        extensions: ['.js', '.jsx', '.png']
+    },
     mode: 'development',
     entry: {
         index: [
@@ -31,9 +34,11 @@ const client = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        publicPath: '/',
         filename: 'bundle.js',
-        chunkFilename: '[name].bundle.js'
+        publicPath: './',
+        // chunkFilename: '[name].bundle.js',
+        hotUpdateChunkFilename: ".hot/[id].[hash].hot-update.js",
+        hotUpdateMainFilename: ".hot/[hash].hot-update.json"
       },
     module: {
         rules: [
@@ -44,33 +49,24 @@ const client = {
             },
             {
                 test: /\.css$/,
-                use: [ 
-                    'style-loader', 
-                {
-                    loader: 'css-loader',
-                    options: { modules: true }
-                }]
+                use: [ 'style-loader', 'css-loader' ]
             },
             {
-                test: /\.(gif|png|jpe?g|svg)$/i,
+                test: /\.(png|jpg|gif)$/,
                 use: [
-                  'file-loader',
-                  {
-                    loader: 'image-webpack-loader',
-                    options: {
-                      bypassOnDebug: true, // webpack@1.x
-                      disable: true, // webpack@2.x and newer
-                    },
-                  }
-                ]
+                    {
+                      loader: 'file-loader',
+                      options: {
+                        name: '[name].[ext]',
+                        context: ''
+                      }
+                    }
+                  ]
             }
         ]
-    },
-    resolve: {
-        extensions: ['.js', '.jsx']
     },
     plugins: [new webpack.HotModuleReplacementPlugin()]
 };
 
 
-module.exports = [server, client];
+module.exports = [client, server];

@@ -8,6 +8,11 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+
+import Login from './Login.jsx'
+
+
+
 // Se importa las paginas
 
 // import Home from ''
@@ -42,14 +47,14 @@ function NavBar(props) {
           </IconButton>
 
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            CSA
+            CSA Monda
           </Typography>
 
           <Button color="inherit">Acerca</Button>
 
           <Button color="inherit">Register</Button>
 
-          <Button color="inherit">Login</Button>
+          <Login color="inherit" style='color: white'/>
 
         </Toolbar>
         

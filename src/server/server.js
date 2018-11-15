@@ -13,7 +13,7 @@ import sensores from './routes/sensores';
 //Hot reload
 import webpack from 'webpack';
 import webpackConfig from '../../webpack.config';
-const compiler = webpack(webpackConfig[1]);
+const compiler = webpack(webpackConfig[0]);
 
 
 import React from 'react';
@@ -22,6 +22,7 @@ import App from '../client/component/App.jsx';
 import Loading from '../client/component/Loading.jsx';
 import Html from '../client/component/html';
 import { ServerStyleSheet } from 'styled-components';
+import { resolve } from 'url';
 
 const app = express();
 
@@ -40,7 +41,8 @@ app.use(express.static('dist'));
 app.use(
     require('webpack-dev-middleware')(compiler, {
         noInfo: true,
-        publicPath: webpackConfig[1].output.publicPath
+        publicPath: webpackConfig[0].output.publicPath,
+        stats: false
     })
 );
 

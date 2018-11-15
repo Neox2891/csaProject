@@ -25,7 +25,7 @@ class App extends Component {
           <NavBar/>
           <Loading/>
           <FilledTextFields/>     
-         
+          <h1>hola</h1>  
         </div>  
         )
     }
